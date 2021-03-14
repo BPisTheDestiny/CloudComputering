@@ -1,2 +1,2 @@
 # CloudComputering
-#The repositories is used for the CloudComputering experiment of Mofish Group! 
+#The repository is used for the CloudComputering experiment of Mofish Group! 
