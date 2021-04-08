@@ -15,22 +15,3 @@
 6.本文件夹内使用的方式为solve_sudoku_basic，为多线程分配任务的方式为静态（预先分好）
 
 7.可求解的puzzle个数为`1e6+5`，若想求解更多，在`sudoku.h`中修改`num_of_puzzle`即可
-
-## 文件截图
-
-`test1`文件：
-
-![image-20200326104745363](http://q7oeubsc9.bkt.clouddn.com/image-20200326104745363.png)
-
-`test4`文件：
-
-![image-20200326104721426](http://q7oeubsc9.bkt.clouddn.com/image-20200326104721426.png)
-
-`outfile`文件（部分）：
-
-![image-20200326104545055](http://q7oeubsc9.bkt.clouddn.com/image-20200326104545055.png)
-
-即test1文件中一个puzzle的解对应于`outfile`文件中的第1行；
-test4文件中四个puzzle的解对应于`outfile`文件中的第2\~5行；
-test40文件中四十个puzzle的解对应于`outfile`文件中的第6\~45行；
-依次类推。
