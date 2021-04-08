@@ -12,10 +12,10 @@ char solution[num_of_puzzle][N+1];
 int board[num_of_puzzle][N];
 
 
-int total=0;//Êı¶À×ÜÊıÁ¿
-int total_solved = 0;//½â¾öÊı¶ÀµÄÊıÄ¿
-bool (*solve)(int, int*) = solve_sudoku_dancing_links;//Çó½âÊı¶ÀµÄ·½Ê½
-int thread_count=2;//£¬Ïß³ÌµÄÊıÄ¿£¬Ä¬ÈÏË«Ïß³Ì
+int total=0;//æ•°ç‹¬æ€»æ•°é‡
+int total_solved = 0;//è§£å†³æ•°ç‹¬çš„æ•°ç›®
+bool (*solve)(int, int*) = solve_sudoku_dancing_links;//æ±‚è§£æ•°ç‹¬çš„æ–¹å¼
+int thread_count=2;//ï¼Œçº¿ç¨‹çš„æ•°ç›®ï¼Œé»˜è®¤åŒçº¿ç¨‹
 pthread_t* thread_handles;
 long int thread;
 
@@ -28,7 +28,7 @@ int64_t now() {
 	return tv.tv_sec * 1000000 + tv.tv_usec;
 }
 
-void init_data() { //ÀëÏß
+void init_data() { //ç¦»çº¿
 
 	char *file_name=(char*)malloc(256*sizeof(char));
 	FILE *fp;
@@ -83,7 +83,7 @@ void* Pth_solve(void* rank) {
 		
 		whichPuzzleIHaveDone[numOfPuzzleIHaveDone]=currentPuzzleID;
 		numOfPuzzleIHaveDone++;
-		//for (int cell = 0; cell < N; ++cell) {board[currentPuzzleID][cell]=puzzle[currentPuzzleID][cell]-'0';}
+		for (int cell = 0; cell < N; ++cell) {board[currentPuzzleID][cell]=puzzle[currentPuzzleID][cell]-'0';}
 		if(solve(0,board[currentPuzzleID])) {
 			pthread_mutex_lock(&mutex);
 			++total_solved;
@@ -118,11 +118,11 @@ void cout_solution() {
 }
 int main(int argc, char* argv[]) {
 
-	if(argv[1]!=NULL) thread_count = strtol(argv[1],NULL,10);//¿É½«Ïß³ÌÊı×÷Îª²ÎÊıÊäÈë
+	if(argv[1]!=NULL) thread_count = strtol(argv[1],NULL,10);//å¯å°†çº¿ç¨‹æ•°ä½œä¸ºå‚æ•°è¾“å…¥
 
 	init_data();
 
-	int64_t start = now();//¿ªÊ¼¼ÆÊ±
+	int64_t start = now();//å¼€å§‹è®¡æ—¶
 	thread_handles = (pthread_t *)malloc(thread_count*sizeof(pthread_t));
 
 	for(thread=0; thread<thread_count; ++thread) {
