@@ -22,41 +22,45 @@ long int thread;
 int nextPuzzleToBeDone=0;
 pthread_mutex_t puzzleQueueMutex=PTHREAD_MUTEX_INITIALIZER;
 pthread_mutex_t mutex=PTHREAD_MUTEX_INITIALIZER;
-int64_t now() {
+int64_t now()
+{
 	struct timeval tv;
 	gettimeofday(&tv, NULL);
 	return tv.tv_sec * 1000000 + tv.tv_usec;
 }
 
-void init_data() { //离线
-
+void init_data()
+{ //离线
 	char *file_name=(char*)malloc(256*sizeof(char));
 	FILE *fp;
-	while(fgets(file_name, 256, stdin)) {
-
-		if(file_name[0]=='\n') {
+	while(fgets(file_name, 256, stdin))
+	{
+		if(file_name[0]=='\n')
+		{
 			printf("input end.start solve.please wait\n");
 			break;
 		}
-
-		if(file_name[strlen(file_name)-1]=='\n')  file_name[strlen(file_name)-1]='\0';
-
+		if(file_name[strlen(file_name)-1]=='\n')
+        {
+		    file_name[strlen(file_name)-1]='\0';
+        }
 		fp = fopen(file_name, "r");
-
-		if(fp==NULL) {
+		if(fp==NULL)
+		{
 			printf("%s does not exist.please try again\n",file_name);
 			continue;
 		}
-		while(fgets(puzzle[total],1024,fp)) {
-			// printf("%s",puzzle[total]);
-			if(strlen(puzzle[total])>=N) {
+		while(fgets(puzzle[total],1024,fp))
+		{
+			if(strlen(puzzle[total])>=N)
+			{
 				++total;
 			}
 		}
 	}
-	//printf("total:%d\n",total);
 }
-int recvAPuzzle(){
+int recvAPuzzle()
+{
 	int currentPuzzleID=0;
 	pthread_mutex_lock(&puzzleQueueMutex);
 	if(nextPuzzleToBeDone>=total) 
@@ -69,50 +73,37 @@ int recvAPuzzle(){
 	pthread_mutex_unlock(&puzzleQueueMutex);
 	return currentPuzzleID;
 }
-void* Pth_solve(void* rank) {
+void* Pth_solve(void* rank)
+{
 	long int my_rank = (long int) rank;
-	
 	int currentPuzzleID=0;
 	int *whichPuzzleIHaveDone=(int*)malloc(total*sizeof(int));//Remember which job I have done
 	long int numOfPuzzleIHaveDone=0;//Remember how many jobs I have done
-	
-	while(true){
+	while(true)
+	{
 		currentPuzzleID = recvAPuzzle();
 		if(currentPuzzleID==-1)//All puzzle done!
 			break;
-		
 		whichPuzzleIHaveDone[numOfPuzzleIHaveDone]=currentPuzzleID;
 		numOfPuzzleIHaveDone++;
-		
-		
 		int nspaces = input(puzzle[currentPuzzleID],board[currentPuzzleID],spaces[currentPuzzleID]);
-		
-		if(solve(0,nspaces,board[currentPuzzleID],spaces[currentPuzzleID])) {
-			
+		if(solve(0,nspaces,board[currentPuzzleID],spaces[currentPuzzleID]))
+		{
 			++total_solved;
-			
 			if (!solved(board[currentPuzzleID]));
-			//assert(0);
-		} else {
+		} else{
 			printf("currentPuzzleID:%d;No: %s", currentPuzzleID,puzzle[currentPuzzleID]);
 		}
-		
-		for(int j=0; j<N; ++j) {
+		for(int j=0; j<N; ++j)
+		{
 			solution[currentPuzzleID][j]=board[currentPuzzleID][j]+'0';
 		}
 		solution[currentPuzzleID][N]='\0';
-		//printf("The %d's solution:%s\n",currentPuzzleID,solution[currentPuzzleID]);
-		
 	}
-	// printf("I'am thread %d,and I have done ",my_rank);
-	// for(int i=0;i<numOfPuzzleIHaveDone;++i){
-		// if(i>0) printf(",");
-		// printf("%d",whichPuzzleIHaveDone[i]);
-	// }
-	// printf(".Altogether %d\n",numOfPuzzleIHaveDone);
 	return NULL;
 }
-void cout_solution() {
+void cout_solution()
+{
 	FILE *fp = fopen("outfile","w");
 	for(int i=0; i<total; ++i) {
 		fprintf(fp,"%s\n",solution[i]);
@@ -121,7 +112,10 @@ void cout_solution() {
 }
 int main(int argc, char* argv[]) {
 
-	if(argv[1]!=NULL) thread_count = strtol(argv[1],NULL,10);//可将线程数作为参数输入
+	if(argv[1]!=NULL)
+    {
+	    thread_count = strtol(argv[1],NULL,10);//可将线程数作为参数输入
+    }
 
 	init_neighbors();
 	init_data();
@@ -129,11 +123,12 @@ int main(int argc, char* argv[]) {
 	int64_t start = now();//开始计时
 	thread_handles = (pthread_t *)malloc(thread_count*sizeof(pthread_t));
 
-	for(thread=0; thread<thread_count; ++thread) {
+	for(thread=0; thread<thread_count; ++thread)
+	{
 		pthread_create(&thread_handles[thread],NULL,Pth_solve,(void*)thread);
 	}
-
-	for(thread=0; thread<thread_count; ++thread) {
+	for(thread=0; thread<thread_count; ++thread)
+	{
 		pthread_join(thread_handles[thread],NULL);
 	}
 	
