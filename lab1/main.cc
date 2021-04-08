@@ -12,10 +12,10 @@ char solution[num_of_puzzle][N+1];
 int board[num_of_puzzle][N];
 
 
-int total=0;//数独总数量
-int total_solved = 0;//解决数独的数目
-bool (*solve)(int, int*) = solve_sudoku_dancing_links;//求解数独的方式
-int thread_count=2;//，线程的数目，默认双线程
+int total=0;//����������
+int total_solved = 0;//�����������Ŀ
+bool (*solve)(int, int*) = solve_sudoku_dancing_links;//��������ķ�ʽ
+int thread_count=2;//���̵߳���Ŀ��Ĭ��˫�߳�
 pthread_t* thread_handles;
 long int thread;
 
@@ -28,7 +28,7 @@ int64_t now() {
 	return tv.tv_sec * 1000000 + tv.tv_usec;
 }
 
-void init_data() { //离线
+void init_data() { //����
 
 	char *file_name=(char*)malloc(256*sizeof(char));
 	FILE *fp;
@@ -118,11 +118,11 @@ void cout_solution() {
 }
 int main(int argc, char* argv[]) {
 
-	if(argv[1]!=NULL) thread_count = strtol(argv[1],NULL,10);//可将线程数作为参数输入
+	if(argv[1]!=NULL) thread_count = strtol(argv[1],NULL,10);//�ɽ��߳�����Ϊ��������
 
 	init_data();
 
-	int64_t start = now();//开始计时
+	int64_t start = now();//��ʼ��ʱ
 	thread_handles = (pthread_t *)malloc(thread_count*sizeof(pthread_t));
 
 	for(thread=0; thread<thread_count; ++thread) {

@@ -13,7 +13,7 @@ extern int neighbors[N][NEIGHBOR];//neighbors[i][j]±íÊ¾µÚi¸ö·½¸ñµÄµÚj¸öÁÚ¾ÓµÄÏÂ±
 //extern int (*chess)[COL];//±íÊ¾ÆåÅÌµÄ¶şÎ¬Êı×é 
 
 /*********************************/
-const int num_of_puzzle = 1e7+5;
+const int num_of_puzzle = 1e6+5;
 extern char puzzle[num_of_puzzle][128];
 extern char solution[num_of_puzzle][N+1];
 
