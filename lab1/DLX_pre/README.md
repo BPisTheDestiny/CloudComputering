@@ -10,8 +10,6 @@
 
 5.求解完成后会将所有数独的解输出至文件`outfile`中（也可输出至标准输出，在`main.cc`中取消注释输出语句即可）
 
-![image-20200326104335750](http://q7oeubsc9.bkt.clouddn.com/image-20200326104335750.png)
-
 6.本文件夹内使用的方式为solve_sudoku_basic，为多线程分配任务的方式为静态（预先分好）
 
 7.可求解的puzzle个数为`1e6+5`，若想求解更多，在`sudoku.h`中修改`num_of_puzzle`即可
