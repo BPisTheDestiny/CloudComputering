@@ -1,6 +1,0 @@
-basic_and_static.png对应代码中的basic_pre （静态分配任务+回溯）测试使用test1、test4、test40、test1000
-basic_and_dynamic.png对应代码中的basic_dyn （动态分配任务+回溯）测试使用test1、test4、test40、test1000
-dance_link_and_basic_(1-40).png对应代码中的DLX_pre （静态分配任务+dance_link）测试使用test1、test4、test40
-dance_link_and_basic_(1000).png对应代码中的DLX_pre （静态分配任务+dance_link）测试使用test1000
-dance_link_and_dynamic_(1000).png对应代码中的DLX_dyn（目前在Sudoku主文件夹中）  （动态分配任务+dance_link） 测试使用test1000
-test_record.xslx为测试记录数据的表格
