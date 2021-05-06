@@ -14,10 +14,10 @@ screen_shot文件夹存放性能测试截图
 
 ### 代码运行方法
 
-环境：Linux，g++
+环境：Linux(Ubuntu 18.04 x64)，g++(7.5.0)
 
 ```
-./make
+make
 ./http_server --ip [ip_addr] --port [port_num]
 ```
 
