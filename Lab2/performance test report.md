@@ -42,7 +42,7 @@
 
 ### 1个连接
 
-![](screen_shot\deepin15.11\10w-1.png)
+![](https://github.com/BPisTheDestiny/CloudComputering/blob/master/Lab2/screen_shot/ubuntu18.04(vm)/10w-1.jpg)
 
 总耗时2.572秒，服务器每秒可处理38873.66个http请求
 
